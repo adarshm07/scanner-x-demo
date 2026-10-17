@@ -1,4 +1,5 @@
 const express = require("express");
+const { exec } = require("child_process");
 const db = require("../db");
 
 // Demo: randomly generated, not a real key.
@@ -22,6 +23,14 @@ router.post("/charge", async (req, res) => {
     body: JSON.stringify({ amount: req.body.amount, customer: req.body.customer }),
   });
   res.status(response.status).json(await response.json());
+});
+
+// Download an invoice as PDF.
+router.get("/invoices/:id/pdf", (req, res) => {
+  exec("wkhtmltopdf /tmp/invoices/" + req.params.id + ".html /tmp/invoice.pdf", (err) => {
+    if (err) return res.status(500).send("render failed");
+    res.download("/tmp/invoice.pdf");
+  });
 });
 
 module.exports = router;
