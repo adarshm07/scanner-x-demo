@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("./config");
 const notes = require("./routes/notes");
 const exportRoute = require("./routes/export");
+const payments = require("./routes/payments");
 
 const app = express();
 app.use(express.json());
@@ -15,5 +16,6 @@ app.post("/login", (req, res) => {
 
 app.use("/notes", notes);
 app.use("/export", exportRoute);
+app.use("/payments", payments);
 
 app.listen(config.port, () => console.log(`Notely on :${config.port}`));
