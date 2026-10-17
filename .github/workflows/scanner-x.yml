@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: read
       security-events: write # findings on the PR diff and in Security → Code scanning
+      pull-requests: write # Scanner-X summary comment on each PR
     steps:
       - uses: actions/checkout@v5
         with:
@@ -25,6 +26,7 @@ jobs:
       - uses: adarshm07/scanner@main
         with:
           fail-on: high
+          report-url: https://adarshm07.github.io/scanner-x-demo/
           # On main, also build the report page for GitHub Pages.
           html-file: ${{ github.event_name != 'pull_request' && 'site/index.html' || '' }}
           # AI triage: add the provider key as a repository secret, then uncomment.
