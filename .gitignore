@@ -1,3 +1,6 @@
 node_modules/
-site/
-scanner-x.*
+# Files written by a local Scanner-X run
+/site/
+/scanner-x.json
+/scanner-x.sarif
+/scanner-x-summary.txt
